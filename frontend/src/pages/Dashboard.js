@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts';
+import { API_BASE_URL } from '../config';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -18,9 +19,9 @@ function Dashboard() {
 
   const fetchDashboard = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/dashboard/${user_id}`);
+      const res = await axios.get(`${API_BASE_URL}/dashboard/${user_id}`);
       setDashboard(res.data);
-      const historyRes = await axios.get(`http://127.0.0.1:8000/score-history/${user_id}`);
+      const historyRes = await axios.get(`${API_BASE_URL}/score-history/${user_id}`);
       setScoreHistory(historyRes.data);
     } catch (err) { console.error(err); }
     setLoading(false);
@@ -29,7 +30,7 @@ function Dashboard() {
   const fetchRecommendations = async () => {
     setAiLoading(true);
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/recommendations/${user_id}`);
+      const res = await axios.get(`${API_BASE_URL}/recommendations/${user_id}`);
       setRecommendations(res.data.ai_recommendations);
     } catch (err) { setRecommendations('Failed to load recommendations.'); }
     setAiLoading(false);

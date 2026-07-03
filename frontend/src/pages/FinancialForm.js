@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 function FinancialForm() {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ function FinancialForm() {
     setLoading(true);
     const user_id = localStorage.getItem('user_id');
     try {
-      await axios.post('http://127.0.0.1:8000/financial-data', {
+      await axios.post(`${API_BASE_URL}/financial-data`, {
         user_id: parseInt(user_id),
         credit_score: parseInt(form.credit_score),
         utilization: parseFloat(form.utilization),

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../config';
 
 function Register() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Register() {
     setLoading(true);
     try {
       if (isLogin) {
-        const res = await axios.post('http://127.0.0.1:8000/login', {
+        const res = await axios.post(`${API_BASE_URL}/login`, {
           email: form.email,
           password: form.password,
         });
@@ -44,7 +45,7 @@ function Register() {
         setMessage('Welcome back! Redirecting...');
         setTimeout(() => navigate('/dashboard'), 1500);
       } else {
-        const res = await axios.post('http://127.0.0.1:8000/register', {
+        const res = await axios.post(`${API_BASE_URL}/register`, {
           name: form.name,
           email: form.email,
           mobile: form.mobile,
